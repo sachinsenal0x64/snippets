@@ -14,7 +14,7 @@ export PATH="$HOME/go/bin:$PATH"
 alias ls="eza --icons=auto"
 alias icat="kitten icat"
 alias ssh="kitty +kitten ssh"
-alias gst="~/.config/scripts/gitreset.sh"
+alias gst="$HOME/.config/scripts/gitreset.sh"
 
 starship init fish | source
 zoxide init --cmd cd fish | source
