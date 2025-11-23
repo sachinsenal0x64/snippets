@@ -52,6 +52,19 @@ fi
 # Otherwise, perform a full reset (fresh orphan commit)
 COMMIT_MSG=${1:-"Initial commit"}
 
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || {
+  echo "❌ Not a git repository. cd into the repo first."
+  exit 1
+}
+
+echo "🚨 WARNING: This will rewrite main history and force-push."
+echo "Commit message will be: \"$COMMIT_MSG\""
+read -r -p "Type CONFIRM to proceed: " ack
+if [ "$ack" != "CONFIRM" ]; then
+  echo "✅ Aborted. Nothing changed."
+  exit 1
+fi
+
 echo "Creating orphan branch..."
 git checkout --orphan latest_branch
 
@@ -71,3 +84,4 @@ echo "Force pushing to remote..."
 git push -f origin main
 
 echo "✅ Done! Main branch has been fully reset."
+
